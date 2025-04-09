@@ -9,40 +9,70 @@ public class CharacterAnimationScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         HandleAnimations();
     }
     
     private void HandleAnimations()
     {
-        //Triggers the Double Jump Animation
-        if (Input.GetButtonDown("Jump"))
+        //handle running and idling
+        if (Input.GetAxis("Horizontal") != 0)
         {
-            animator.SetTrigger("Jump");
+            animator.SetTrigger("RunTrigger");
         }
         else
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger("IdleTrigger");
         }
         
+        // handle jumping
+        if (Input.GetButtonDown("Jump"))
+        {
+            animator.SetTrigger("JumpTrigger");
+        }
+		else
+		{
+			animator.SetTrigger("IdleTrigger");
+		}
+        
+        //Triggers the Double Jump Animation
+        //if (Input.GetButtonDown("Jump"))
+        //{
+            //animator.SetTrigger("Jump");
+        //}
+        //else
+        //{
+            //animator.SetTrigger("Idle");
+        //}
+        
+        // handle wall jumping
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+           animator.SetTrigger("WallJumpTrigger");
+        } 
+		else
+		{
+			animator.SetTrigger("IdleTrigger");
+		}        
         //Triggers the Hit Animation
         if (Input.GetKeyDown(KeyCode.H))
         {
-            animator.SetTrigger("Hit");
+            animator.SetTrigger("HitTrigger");
         }
         else
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger("IdleTrigger");
         }
+        
         //Triggers the *Fall? Animation
         if (Input.GetKeyDown(KeyCode.F))
         {
-            animator.SetTrigger("Fall");
+            animator.SetTrigger("FallTrigger");
         }
         else
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger("IdleTrigger");
         }
     }
 }
